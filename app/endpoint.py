@@ -1,5 +1,6 @@
 from typing import Union
 from fastapi import FastAPI
+from app.exchanges.item import Item
 from app.main import app
 
 
@@ -27,3 +28,9 @@ async def printPathParam(
     }
     print(response)
     return response
+
+
+@app.post("/test-body/")
+async def test_body(item: Item) -> Item:
+    print(item)
+    return item
