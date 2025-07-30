@@ -1,5 +1,6 @@
-from typing import Union
-from fastapi import FastAPI
+from typing import Annotated, Union
+
+from fastapi import Query
 from app.exchanges.item import Item
 from app.main import app
 
@@ -34,3 +35,9 @@ async def printPathParam(
 async def test_body(item: Item) -> Item:
     print(item)
     return item
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[list[str], Query()] = []):
+    query_items = {"q": q}
+    return query_items
